@@ -11,11 +11,38 @@ dependencies:
     sdk: flutter
   hive: ^2.2.3
   hive_flutter: ^1.1.0
+  persian_fonts: ^1.0.5
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+  
 
 flutter:
   uses-material-design: true
+
+  fonts:
+    - family: Achaf
+      fonts:
+        - asset: fonts/Achafexp.ttf
+        - asset: fonts/Achafita.ttf
+          
+    - family: Nastaliq
+      fonts:
+        - asset: fonts/IranNastaliq.ttf
+       
+          
+    - family: Vazir
+      fonts:
+        - asset: fonts/Vazir-Bold.ttf
+        - asset: fonts/Vazir-Medium.ttf
+        - asset: fonts/Vazir-Thin.ttf
+        - asset: fonts/Vazir.ttf
+        - asset: fonts/Vazir-Light.ttf
+    
+    - family: Lalezar
+      fonts:
+        - asset: fonts/Lalezar-Regular.ttf
+       
+          

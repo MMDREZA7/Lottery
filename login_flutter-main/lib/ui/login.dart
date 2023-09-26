@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
+import 'package:persian_fonts/persian_fonts.dart';
 import 'home.dart';
 import 'signup.dart';
 
@@ -17,8 +17,19 @@ class _LoginState extends State<Login> {
   final GlobalKey<FormState> _formKey = GlobalKey();
 
   final FocusNode _focusNodePassword = FocusNode();
-  final TextEditingController _controllerUsername = TextEditingController();
+  final TextEditingController _controllerPhoneNumber = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
+
+  final TextStyle _samimStyle = PersianFonts.Samim;
+  final TextStyle _shabnamStyle = PersianFonts.Shabnam;
+  final TextStyle _vazirStyle = PersianFonts.Vazir;
+  final TextStyle _yekanStyle = PersianFonts.Yekan;
+  final TextStyle _sahelStyle = PersianFonts.Sahel;
+  final TextStyle _VazirDicorationStyle = const TextStyle(
+    fontFamily: 'Vazir',
+    fontSize: 14,
+    color: Colors.orange,
+  );
 
   bool _obscurePassword = true;
   final Box _boxLogin = Hive.box("login");
@@ -31,43 +42,55 @@ class _LoginState extends State<Login> {
     }
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+      backgroundColor: Colors.blueGrey[900],
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(30.0),
+          padding: const EdgeInsets.all(30),
           child: Column(
             children: [
-              const SizedBox(height: 150),
-              Text(
+              const SizedBox(height: 120),
+              const Text(
                 "خوش آمدید",
-                style: Theme.of(context).textTheme.headlineLarge,
+                style: TextStyle(
+                  fontSize: 50,
+                  color: Colors.orange,
+                  fontFamily: 'Lalezar',
+                  fontWeight: FontWeight.w400,
+                ),
               ),
               const SizedBox(height: 10),
-              Text(
+              const Text(
                 "ورود به برنامه",
-                style: Theme.of(context).textTheme.bodyMedium,
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.orange,
+                  fontFamily: 'Lalezar',
+                  fontWeight: FontWeight.w400,
+                ),
               ),
               const SizedBox(height: 60),
               TextFormField(
-                controller: _controllerUsername,
-                keyboardType: TextInputType.name,
+                controller: _controllerPhoneNumber,
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                  labelText: "نام کاربری",
-                  prefixIcon: const Icon(Icons.person_outline),
+                  labelText: "شماره تلفن",
+                  labelStyle: _VazirDicorationStyle,
+                  prefixIconColor: Colors.orange,
+                  prefixIcon: const Icon(Icons.phone),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: Colors.orange)),
                 ),
                 onEditingComplete: () => _focusNodePassword.requestFocus(),
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    return "لطفا نام کاربری را به صوزت انگلیسی وارد نمایید";
+                    return "لطفا  شماره تلفن را وارد نمایید";
                   } else if (!_boxAccounts.containsKey(value)) {
-                    return "نام کاربری را اشتباه وارد کرده اید";
+                    return "شماره تلفنی وارد کرده اید قبلا ثبت نام شده است";
                   }
 
                   return null;
@@ -81,28 +104,32 @@ class _LoginState extends State<Login> {
                 keyboardType: TextInputType.visiblePassword,
                 decoration: InputDecoration(
                   labelText: "رمز عبور",
+                  labelStyle: _VazirDicorationStyle,
+                  prefixIconColor: Colors.orange,
+                  suffixIconColor: Colors.orange,
                   prefixIcon: const Icon(Icons.password_outlined),
                   suffixIcon: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          _obscurePassword = !_obscurePassword;
-                        });
-                      },
-                      icon: _obscurePassword
-                          ? const Icon(Icons.visibility_outlined)
-                          : const Icon(Icons.visibility_off_outlined)),
+                    onPressed: () {
+                      setState(() {
+                        _obscurePassword = !_obscurePassword;
+                      });
+                    },
+                    icon: _obscurePassword
+                        ? const Icon(Icons.visibility_outlined)
+                        : const Icon(Icons.visibility_off_outlined),
+                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.orange)),
                 ),
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
                     return "لطفا رمز عبور را وارد نمایید";
                   } else if (value !=
-                      _boxAccounts.get(_controllerUsername.text)) {
+                      _boxAccounts.get(_controllerPhoneNumber.text)) {
                     return "رمز عبور اشتباه است";
                   }
 
@@ -112,29 +139,40 @@ class _LoginState extends State<Login> {
               const SizedBox(height: 60),
               Column(
                 children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(50),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
+                  SizedBox(
+                    width: 320,
+                    height: 55,
+                    child: TextButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                          Colors.orange,
+                        ),
+                      ),
+                      onPressed: () {
+                        if (_formKey.currentState?.validate() ?? false) {
+                          _boxLogin.put("loginStatus", true);
+                          _boxLogin.put(
+                              "userName", _controllerPhoneNumber.text);
+
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return Home();
+                              },
+                            ),
+                          );
+                        }
+                      },
+                      child: const Text(
+                        "ورود به برنامه",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'Vazir',
+                          color: Color.fromARGB(255, 54, 59, 61),
+                        ),
                       ),
                     ),
-                    onPressed: () {
-                      if (_formKey.currentState?.validate() ?? false) {
-                        _boxLogin.put("loginStatus", true);
-                        _boxLogin.put("userName", _controllerUsername.text);
-
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return Home();
-                            },
-                          ),
-                        );
-                      }
-                    },
-                    child: const Text("ورود به برنامه"),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -152,9 +190,23 @@ class _LoginState extends State<Login> {
                             ),
                           );
                         },
-                        child: const Text("ثبت نام"),
+                        child: const Text(
+                          "ثبت نام",
+                          style: TextStyle(
+                            fontFamily: 'Lalezar',
+                            fontSize: 17,
+                            color: Colors.blue,
+                          ),
+                        ),
                       ),
-                      const Text("آیا ثبت نام نکرده اید؟"),
+                      const Text(
+                        "آیا ثبت نام نکرده اید؟",
+                        style: TextStyle(
+                          fontFamily: 'Lalezar',
+                          fontSize: 18,
+                          color: Colors.orange,
+                        ),
+                      ),
                     ],
                   ),
                 ],
@@ -169,7 +221,7 @@ class _LoginState extends State<Login> {
   @override
   void dispose() {
     _focusNodePassword.dispose();
-    _controllerUsername.dispose();
+    _controllerPhoneNumber.dispose();
     _controllerPassword.dispose();
     super.dispose();
   }
