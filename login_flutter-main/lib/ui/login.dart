@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:persian_fonts/persian_fonts.dart';
+// import 'package:persian_fonts/persian_fonts.dart';
 import 'home.dart';
 import 'signup.dart';
 
