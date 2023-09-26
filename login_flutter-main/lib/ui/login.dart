@@ -20,11 +20,11 @@ class _LoginState extends State<Login> {
   final TextEditingController _controllerPhoneNumber = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
 
-  final TextStyle _samimStyle = PersianFonts.Samim;
-  final TextStyle _shabnamStyle = PersianFonts.Shabnam;
-  final TextStyle _vazirStyle = PersianFonts.Vazir;
-  final TextStyle _yekanStyle = PersianFonts.Yekan;
-  final TextStyle _sahelStyle = PersianFonts.Sahel;
+  // final TextStyle _samimStyle = PersianFonts.Samim;
+  // final TextStyle _shabnamStyle = PersianFonts.Shabnam;
+  // final TextStyle _vazirStyle = PersianFonts.Vazir;
+  // final TextStyle _yekanStyle = PersianFonts.Yekan;
+  // final TextStyle _sahelStyle = PersianFonts.Sahel;
   final TextStyle _VazirDicorationStyle = const TextStyle(
     fontFamily: 'Vazir',
     fontSize: 14,
@@ -123,7 +123,7 @@ class _LoginState extends State<Login> {
                   ),
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(color: Colors.orange)),
+                      borderSide: const BorderSide(color: Colors.orange)),
                 ),
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {

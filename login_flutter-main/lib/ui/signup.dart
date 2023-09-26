@@ -21,11 +21,11 @@ class _SignupState extends State<Signup> {
   final TextEditingController _controllerConFirmPassword =
       TextEditingController();
 
-  final TextStyle _samimStyle = PersianFonts.Samim;
-  final TextStyle _shabnamStyle = PersianFonts.Shabnam;
-  final TextStyle _vazirStyle = PersianFonts.Vazir;
-  final TextStyle _yekanStyle = PersianFonts.Yekan;
-  final TextStyle _sahelStyle = PersianFonts.Sahel;
+  // final TextStyle _samimStyle = PersianFonts.Samim;
+  // final TextStyle _shabnamStyle = PersianFonts.Shabnam;
+  // final TextStyle _vazirStyle = PersianFonts.Vazir;
+  // final TextStyle _yekanStyle = PersianFonts.Yekan;
+  // final TextStyle _sahelStyle = PersianFonts.Sahel;
   final TextStyle _VazirDicorationStyle = const TextStyle(
     fontFamily: 'Vazir',
     fontSize: 14,
