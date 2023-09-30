@@ -74,7 +74,7 @@ class _LoginState extends State<Login> {
                 controller: _controllerPhoneNumber,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                  labelText: "شماره تلفن",
+                  labelText: "شماره موبایل",
                   labelStyle: _VazirDicorationStyle,
                   prefixIconColor: Colors.orange,
                   prefixIcon: const Icon(Icons.phone),

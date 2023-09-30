@@ -65,6 +65,7 @@ class _SignupState extends State<Signup> {
                   color: Colors.orange,
                 ),
               ),
+
               const SizedBox(height: 35),
               TextFormField(
                 focusNode: _focusNodePhoneNumber,
